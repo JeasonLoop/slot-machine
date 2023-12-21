@@ -1,0 +1,73 @@
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.slots-box {
+  padding: 20px 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.slot-box {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.slot-box-inner {
+  background: #eee;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  padding: 0 10px;
+}
+
+.slot-box-inner.move {
+  background: linear-gradient(to right, #0be881 0%, #4bcffa 50%, #0be881 100%);
+  background-size: 300%;
+  animation: sbg 1s infinite alternate;
+}
+
+.slot-items {
+  /* padding: 0 10px; */
+}
+
+.slot-item {
+  margin: 10px 0;
+  height: 80px;
+  width: 80px;
+  text-align: center;
+  background: #f60;
+  color: white;
+  line-height: 80px;
+  transition: all 1s;
+}
+
+
+.btn {
+  display: block;
+  margin: 20px auto;
+  width: 200px;
+  height: 48px;
+  border-radius: 48px;
+  border: none;
+  color: #fff;
+  outline: none;
+  background: linear-gradient(to right, #f1c40f 0%, #e74c3c 100%);
+}
+
+@keyframes sbg {
+  0% {
+    background-position: 100%;
+  }
+
+  50% {
+    background-position: -100%;
+  }
+
+  100% {
+    background-position: 0;
+  }
+}
