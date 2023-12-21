@@ -161,7 +161,7 @@ function SlotMachine() {
       timeDiff = isRolling ? timeDiff - nextRoundFactor * 1000 : timeDiff;
 
       // 超时停止的特殊处理
-      if(timeCount >=5 && !isRolling){
+      if (timeCount >= 5 && !isRolling) {
         timeDiff = timeDiff - 2500
       }
 
@@ -202,18 +202,22 @@ function SlotMachine() {
   const renderSlosColumns = () => {
     return (
       <>
-       {slots.map((slot, i) => (
-        <div key={i} className="slot_box">
-          <div className={`slot_box_inner ${slotsOpts ? 'move' : ''}`}>
-            <div className="slot_items" style={{ transform: `translateY(${slot.trans}px)` }}>
-              {slot.items.map((item, index) => (
-                <div key={index} className="slot_item">{item.name}</div>
-              ))}
-              <div className="slot_item slot_item_copy">{slot.items[0]?.name}</div>
+        {
+          slots.map((slot, i) => (
+            <div key={i} className="slot_box">
+              <div className={`slot_box_inner ${slotsOpts ? 'move' : ''}`}>
+                <div className="slot_items" style={{ transform: `translateY(${slot.trans}px)` }}>
+                  {
+                    slot.items.map((item, index) => (
+                      <div key={index} className="slot_item">{item.name}</div>
+                    ))
+                  }
+                  <div className="slot_item slot_item_copy">{slot.items[0]?.name}</div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
+          ))
+        }
       </>
     )
   }
