@@ -5,18 +5,18 @@
   box-sizing: border-box;
 }
 
-.slots-box {
+.slots_box {
   padding: 20px 0;
   overflow: hidden;
   text-align: center;
 }
 
-.slot-box {
+.slot_box {
   display: inline-block;
   margin: 0 10px;
 }
 
-.slot-box-inner {
+.slot_box_inner {
   background: #eee;
   width: 100px;
   height: 100px;
@@ -24,17 +24,13 @@
   padding: 0 10px;
 }
 
-.slot-box-inner.move {
+.slot_box_inner.move {
   background: linear-gradient(to right, #0be881 0%, #4bcffa 50%, #0be881 100%);
   background-size: 300%;
   animation: sbg 1s infinite alternate;
 }
 
-.slot-items {
-  /* padding: 0 10px; */
-}
-
-.slot-item {
+.slot_item {
   margin: 10px 0;
   height: 80px;
   width: 80px;

@@ -129,6 +129,7 @@ function SlotMachine() {
   }, [isRandom]);
 
 
+  // 转动超时处理
   useEffect(() => {
     if (!isRolling) return
     if (timeCount >= 5) {
@@ -197,20 +198,29 @@ function SlotMachine() {
     return () => cancelAnimationFrame(animationFrameId.current); // 清理动画帧请求
   }, [slotsOpts, slotsData, slots, isRolling]);
 
-  return (
-    <div className="slots-box">
-      {slots.map((slot, i) => (
-        <div key={i} className="slot-box">
-          <div className={`slot-box-inner ${slotsOpts ? 'move' : ''}`}>
-            <div className="slot-items" style={{ transform: `translateY(${slot.trans}px)` }}>
+  // 渲染奖品列
+  const renderSlosColumns = () => {
+    return (
+      <>
+       {slots.map((slot, i) => (
+        <div key={i} className="slot_box">
+          <div className={`slot_box_inner ${slotsOpts ? 'move' : ''}`}>
+            <div className="slot_items" style={{ transform: `translateY(${slot.trans}px)` }}>
               {slot.items.map((item, index) => (
-                <div key={index} className="slot-item">{item.name}</div>
+                <div key={index} className="slot_item">{item.name}</div>
               ))}
-              <div className="slot-item slot-item-copy">{slot.items[0]?.name}</div>
+              <div className="slot_item slot_item_copy">{slot.items[0]?.name}</div>
             </div>
           </div>
         </div>
       ))}
+      </>
+    )
+  }
+
+  return (
+    <div className="slots_box">
+      {renderSlosColumns()}
       <button onClick={() => roll()} className="btn">开始抽奖</button>
       <button onClick={() => stop()} className="btn">停止抽奖</button>
       <button onClick={changeRandomVersion} className="btn">
