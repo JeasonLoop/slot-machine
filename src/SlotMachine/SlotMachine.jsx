@@ -1,23 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from 'react';
+import chicken from './assets/prizeImgs/小鸡.png'
+import cat from './assets/prizeImgs/小猫.png'
+import dog from './assets/prizeImgs/小狗.png'
+import whiteBear from './assets/prizeImgs/白熊.png'
+import duck from './assets/prizeImgs/小鸭.png'
+import pig from './assets/prizeImgs/小猪.png'
+import rabbit from './assets/prizeImgs/兔子.png'
+import frog from './assets/prizeImgs/青蛙.png'
+import pigeon from './assets/prizeImgs/鸽子.png'
 import './index.css'; // 确保引入了相应的 CSS 文件
+
+const prizeImgs = [chicken,cat,dog,whiteBear,duck,pig,rabbit,frog,pigeon]
 
 const ITEM_HEIGHT = 90
 let overTimer = null
 
 function SlotMachine() {
   // --- 此处的奖品数据为默认写好，如果模拟真实情况则是通过接口或者props接收奖品列表之后，处理成下述的格式
-  const [slotsData, setSlotsData] = useState([
-    { name: '1鼠标', isActived: 0 },
-    { name: '2键盘', isActived: 0 },
-    { name: '3笔记本', isActived: 0 },
-    { name: '4西瓜', isActived: 0 },
-    { name: '5苹果', isActived: 0 },
-    { name: '6火龙果', isActived: 0 },
-    { name: '7汽车', isActived: 0 },
-    { name: '8手机', isActived: 0 },
-    { name: '9游戏机', isActived: 0 }
-  ]);
+  const [slotsData, setSlotsData] = useState(
+    prizeImgs.map((item,idx) => {
+      return {
+        name:`某种小动物${idx}`,
+        isActived:0,
+        imgUrl:item
+      }
+    })
+  );
 
   const [slots, setSlots] = useState([
     { title: "组1", trans: 0, items: [] },
@@ -209,10 +218,10 @@ function SlotMachine() {
                 <div className="slot_items" style={{ transform: `translateY(${slot.trans}px)` }}>
                   {
                     slot.items.map((item, index) => (
-                      <div key={index} className="slot_item">{item.name}</div>
+                      <div key={index} className="slot_item" style={{backgroundImage:`url(${item.imgUrl})`}}></div>
                     ))
                   }
-                  <div className="slot_item slot_item_copy">{slot.items[0]?.name}</div>
+                  <div className="slot_item slot_item_copy" style={{backgroundImage:`url(${slot.items[0]?.imgUrl})`}}></div>
                 </div>
               </div>
             </div>
