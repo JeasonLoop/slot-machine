@@ -11,7 +11,7 @@ import frog from './assets/prizeImgs/青蛙.png'
 import pigeon from './assets/prizeImgs/鸽子.png'
 import './index.css'; // 确保引入了相应的 CSS 文件
 
-const prizeImgs = [chicken,cat,dog,whiteBear,duck,pig,rabbit,frog,pigeon]
+const prizeImgs = [chicken, cat, dog, whiteBear, duck, pig, rabbit, frog, pigeon]
 
 const ITEM_HEIGHT = 90
 let overTimer = null
@@ -19,11 +19,11 @@ let overTimer = null
 function SlotMachine() {
   // --- 此处的奖品数据为默认写好，如果模拟真实情况则是通过接口或者props接收奖品列表之后，处理成下述的格式
   const [slotsData, setSlotsData] = useState(
-    prizeImgs.map((item,idx) => {
+    prizeImgs.map((item, idx) => {
       return {
-        name:`某种小动物${idx}`,
-        isActived:0,
-        imgUrl:item
+        name: `某种小动物${idx}`,
+        isActived: 0,
+        imgUrl: item
       }
     })
   );
@@ -44,6 +44,7 @@ function SlotMachine() {
 
   const [isRandom, setIsRandom] = useState(false)
 
+  /** 主要逻辑函数 */
 
   // 数组洗牌
   const shuffleArray = (array) => {
@@ -54,6 +55,7 @@ function SlotMachine() {
     }
     return newArray;
   };
+
 
   // 初始化slot组数据
   const initSlots = () => {
@@ -67,17 +69,12 @@ function SlotMachine() {
     setSlots(updatedSlots);
   };
 
-  // 是否要随机初始数组
-  const changeRandomVersion = () => {
-    if (isRolling) return
-    if (isRandom) {
-      initSlots()
-    }
-    setIsRandom(preState => !preState)
-  }
-
   // 停止滚动并且生成奖品
   const stop = (prizeName) => {
+    if(!isRolling){
+      alert('请先点击开始抽奖')
+      return
+    }
 
     // 模拟请求后台中奖返回
     const resultIndex = Math.floor(Math.random() * slotsData.length);
@@ -131,12 +128,6 @@ function SlotMachine() {
     setSlotsOpts(updatedSlotsOpts);
     slotsStartedAt.current = Date.now();
   };
-
-  // 奖品数据初始化
-  useEffect(() => {
-    initSlots();
-  }, [isRandom]);
-
 
   // 转动超时处理
   useEffect(() => {
@@ -207,6 +198,30 @@ function SlotMachine() {
     return () => cancelAnimationFrame(animationFrameId.current); // 清理动画帧请求
   }, [slotsOpts, slotsData, slots, isRolling]);
 
+  /** end main logic func */
+
+
+
+  /** 额外功能函数 */
+
+  // 是否要随机初始数组
+  const changeRandomVersion = () => {
+    if (isRolling) return
+    if (isRandom) {
+      initSlots()
+    }
+    setIsRandom(preState => !preState)
+  }
+
+
+  // 奖品数据初始化
+  useEffect(() => {
+    initSlots();
+  }, [isRandom]);
+
+  /** end additonal func */
+
+  /** dom结构渲染 */
   // 渲染奖品列
   const renderSlosColumns = () => {
     return (
@@ -218,10 +233,10 @@ function SlotMachine() {
                 <div className="slot_items" style={{ transform: `translateY(${slot.trans}px)` }}>
                   {
                     slot.items.map((item, index) => (
-                      <div key={index} className="slot_item" style={{backgroundImage:`url(${item.imgUrl})`}}></div>
+                      <div key={index} className="slot_item" style={{ backgroundImage: `url(${item.imgUrl})` }}></div>
                     ))
                   }
-                  <div className="slot_item slot_item_copy" style={{backgroundImage:`url(${slot.items[0]?.imgUrl})`}}></div>
+                  <div className="slot_item slot_item_copy" style={{ backgroundImage: `url(${slot.items[0]?.imgUrl})` }}></div>
                 </div>
               </div>
             </div>
